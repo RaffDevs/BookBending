@@ -11,35 +11,7 @@ public sealed class Book
     public string? ThumbnailLink { get; private set; }
     public string? BookCode { get;  private set; }
     public string? Isbn { get; private set; }
+    public int BookCaseId { get; private set; }
     public BookCase? BookCase { get; private set; }
-
-    public Book(string? description, string? authors, string? publisher, int pageCount, string? thumbnailSmallLink,
-        string? thumbnailLink, string? bookCode, string? isbn, BookCase? bookCase)
-    {
-        Description = description;
-        Authors = authors;
-        Publisher = publisher;
-        PageCount = pageCount;
-        ThumbnailSmallLink = thumbnailSmallLink;
-        ThumbnailLink = thumbnailLink;
-        BookCode = bookCode;
-        Isbn = isbn;
-        BookCase = bookCase;
-    }
-
-    public Book(int id, string? description, string? authors, string? publisher, int pageCount,
-        string? thumbnailSmallLink, string? thumbnailLink, string? bookCode, string? isbn, BookCase? bookCase)
-    {
-        Id = id;
-        Description = description;
-        Authors = authors;
-        Publisher = publisher;
-        PageCount = pageCount;
-        ThumbnailSmallLink = thumbnailSmallLink;
-        ThumbnailLink = thumbnailLink;
-        BookCode = bookCode;
-        Isbn = isbn;
-        BookCase = bookCase;
-        BookCase = bookCase;
-    }
+    
 }
