@@ -6,6 +6,9 @@ using Api.Auth.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
+// TODO("Create usecase layer for auth")
+// TODO("adding exception handler on usecase")
+
 namespace Api.Auth.Controller
 {
     [Route("api/[controller]")]
