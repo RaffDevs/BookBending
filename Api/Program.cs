@@ -1,7 +1,9 @@
 using System.Text;
 using Api.Auth.Models;
 using Api.Auth.Services;
+using Api.Auth.Usecases;
 using Api.Database.Context;
+using Api.Filter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,12 +18,17 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseNpgsql(connectionString);
 });
 
-builder.Services.AddControllers();
-builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(typeof(ApiExceptionFilter));
+});
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IAuthUsecase, AuthUsecase>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<DatabaseContext>()

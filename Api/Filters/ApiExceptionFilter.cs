@@ -1,0 +1,45 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Shared.Errors;
+
+namespace Api.Filter;
+
+public class ApiExceptionFilter : IExceptionFilter
+{
+    private readonly ILogger<ApiExceptionFilter> _logger;
+
+    public ApiExceptionFilter(ILogger<ApiExceptionFilter> logger)
+    {
+        _logger = logger;
+    }
+
+    public void OnException(ExceptionContext context)
+    {
+        Exception? exception;
+        var result = new ObjectResult(context.Exception.Message);
+        
+        switch (context.Exception)
+        {
+            case BadRequestError:
+                result.StatusCode = StatusCodes.Status400BadRequest;
+                break;
+            case NotFoundError:
+                result.StatusCode = StatusCodes.Status404NotFound;
+                break;
+            case ConflictError:
+                result.StatusCode = StatusCodes.Status409Conflict;
+                break;
+            case UnauthorizedError:
+                result.StatusCode = StatusCodes.Status401Unauthorized;
+                break;
+            case ForbiddenError:
+                result.StatusCode = StatusCodes.Status403Forbidden;
+                break;
+            default:
+                _logger.LogError(context.Exception, context.Exception.Message);
+                result.StatusCode = StatusCodes.Status500InternalServerError;
+                break;
+        }
+        context.Result = result;
+    }
+}

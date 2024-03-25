@@ -9,6 +9,6 @@ public interface IAuthUsecase
     public Task<TokenDTO> Login(LoginDTO data);
     public Task Register(RegisterDTO data);
     public Task<TokenDTO> RefereshToken(TokenDTO data);
-    public Task Revoke();
+    public Task Revoke(string userName);
 
 }

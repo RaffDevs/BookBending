@@ -8,4 +8,5 @@ public class TokenDTO
     public string? RefershToken { get; set; }
     
     public ClaimsPrincipal? PrincipalClaims { get; set; }
+    public DateTime? ValidTo { get; set; }
 }
