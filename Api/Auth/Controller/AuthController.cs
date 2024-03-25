@@ -1,6 +1,5 @@
 using Api.Auth.DTO;
 using Api.Auth.Usecases;
-using Api.Filter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Auth.Controller

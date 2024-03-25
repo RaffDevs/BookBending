@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Shared.Errors;
 
-namespace Api.Filter;
+namespace Api.Filters;
 
 public class ApiExceptionFilter : IExceptionFilter
 {
@@ -15,7 +15,6 @@ public class ApiExceptionFilter : IExceptionFilter
 
     public void OnException(ExceptionContext context)
     {
-        Exception? exception;
         var result = new ObjectResult(context.Exception.Message);
         
         switch (context.Exception)

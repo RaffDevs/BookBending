@@ -3,7 +3,7 @@ using Api.Auth.Models;
 using Api.Auth.Services;
 using Api.Auth.Usecases;
 using Api.Database.Context;
-using Api.Filter;
+using Api.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

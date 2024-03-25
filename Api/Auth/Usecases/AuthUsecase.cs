@@ -8,8 +8,6 @@ using Shared.Errors;
 
 namespace Api.Auth.Usecases;
 
-//TODO("Criar erros personalizados")
-
 public class AuthUsecase : IAuthUsecase
 {
     private readonly ITokenService _tokenService;
