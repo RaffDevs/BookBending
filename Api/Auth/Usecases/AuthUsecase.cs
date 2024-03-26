@@ -72,7 +72,7 @@ public class AuthUsecase : IAuthUsecase
 
     public async Task<TokenDTO> Login(LoginDTO data)
     {
-        var user = await _userManager.FindByNameAsync(data.UserName!);
+        var user = await _userManager.FindByEmailAsync(data.Email!);
         if (user is not null && await _userManager.CheckPasswordAsync(user, data.Password!))
         {
             var userRoles = await _userManager.GetRolesAsync(user);
@@ -81,7 +81,7 @@ public class AuthUsecase : IAuthUsecase
             {
                 new Claim(ClaimTypes.Name, user.UserName!),
                 new Claim(ClaimTypes.Email, user.Email!),
-                new Claim("id", data.UserName!),
+                new Claim("id", data.Email!),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -98,12 +98,13 @@ public class AuthUsecase : IAuthUsecase
             user.RefreshTokenExpireTime = DateTime.UtcNow.AddMinutes(refreshTokenValidityInMinutes);
 
             await _userManager.UpdateAsync(user);
-
+            
             return new TokenDTO
             {
                 AcessToken = new JwtSecurityTokenHandler().WriteToken(token),
                 RefershToken = refreshToken,
-                ValidTo = token.ValidTo
+                ValidTo = token.ValidTo,
+                Username = user.UserName!
             };
         }
 
