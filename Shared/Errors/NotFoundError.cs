@@ -19,5 +19,5 @@ public sealed class NotFoundError : BaseError
         return exception != null
             ? new NotFoundError(statusCode, description, exception)
             : new NotFoundError(statusCode, description);
-    } 
+    }
 }

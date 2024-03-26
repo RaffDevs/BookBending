@@ -3,7 +3,14 @@ using Api.Auth.Models;
 using Api.Auth.Services;
 using Api.Auth.Usecases;
 using Api.Database.Context;
+using Api.Domains.Owner.Mapper;
+using Api.Domains.Owner.Repository;
+using Api.Domains.Owner.Usecases;
+using Api.Domains.Owner.Usecases.Interfaces;
 using Api.Filters;
+using Api.Repositories;
+using Api.Repositories.Interfaces;
+using Domain.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +32,12 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthUsecase, AuthUsecase>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+builder.Services.AddScoped<IBookOwnerRepository, BookOwnerRepository>();
+builder.Services.AddScoped<IBookOwnerUsecase, BookOwnerUsecase>();
+builder.Services.AddAutoMapper(typeof(BookOwnerDTOMapperProfile));
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
