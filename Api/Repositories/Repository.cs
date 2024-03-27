@@ -1,4 +1,5 @@
-﻿using Api.Database.Context;
+﻿using System.Linq.Expressions;
+using Api.Database.Context;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,11 @@ public class Repository<T> : IRepository<T> where T: class
     public async Task<T> GetById(int id)
     {
         return await _context.Set<T>().FindAsync(id);
+    }
+
+    public async Task<T?> GetBy(Expression<Func<T, bool>> predicate)
+    {
+        return await _context.Set<T>().FirstOrDefaultAsync(predicate);
     }
 
     public async Task<T> Create(T data)

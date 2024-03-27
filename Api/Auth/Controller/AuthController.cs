@@ -67,5 +67,14 @@ namespace Api.Auth.Controller
             await _authUsecase.Revoke(username);
             return NoContent();
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string email)
+        {
+            var result = await _authUsecase.Delete(email);
+            var user = await _bookOwnerUsecase.GetBy(bo => bo.UserName == result.UserName);
+            await _bookOwnerUsecase.Delete(user.Id);
+            return NoContent();
+        }
     }
 }

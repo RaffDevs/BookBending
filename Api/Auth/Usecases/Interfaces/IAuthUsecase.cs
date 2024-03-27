@@ -1,4 +1,5 @@
 ﻿using Api.Auth.DTO;
+using Api.Auth.Models;
 
 namespace Api.Auth.Usecases;
 
@@ -10,5 +11,6 @@ public interface IAuthUsecase
     public Task Register(RegisterDTO data);
     public Task<TokenDTO> RefereshToken(TokenDTO data);
     public Task Revoke(string userName);
+    public Task<ApplicationUser> Delete(string email);
 
 }

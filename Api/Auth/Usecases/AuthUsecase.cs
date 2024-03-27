@@ -179,4 +179,21 @@ public class AuthUsecase : IAuthUsecase
         user.RefreshToken = null;
         await _userManager.UpdateAsync(user);
     }
+
+    public async Task<ApplicationUser> Delete(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+        
+        if (user is null) throw NotFoundError.Builder("No user founded", null);
+
+        var result = await _userManager.DeleteAsync(user);
+
+        if (result.Succeeded)
+        {
+            return user;
+        }
+
+        var errors = string.Join("; ", result.Errors.Select(er => er.Description));
+        throw NotFoundError.Builder(errors, null);
+    }
 }

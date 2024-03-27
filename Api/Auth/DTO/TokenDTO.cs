@@ -16,4 +16,5 @@ public class TokenDTO
     
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ClaimsPrincipal? PrincipalClaims { get; set; }
+    
 }
