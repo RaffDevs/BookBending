@@ -1,6 +1,7 @@
 using Api.Auth.DTO;
 using Api.Auth.Usecases;
 using Api.Domains.Owner.Usecases.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DTO;
 
@@ -19,13 +20,15 @@ namespace Api.Auth.Controller
             _bookOwnerUsecase = bookOwnerUsecase;
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost("CreateRole")]
         public async Task<IActionResult> CreateRole(string roleName)
         {
             var result = await _authUsecase.CreateRole(roleName);
             return Ok($"Role {result} has been created!");
         }
-
+        
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost("AddUserToRole")]
         public async Task<IActionResult> AddUserToRole(AddUserToRoleDTO data)
         {
@@ -54,6 +57,7 @@ namespace Api.Auth.Controller
             return Ok("User created successfully!");
         }
 
+        [Authorize]
         [HttpPost("Refresh")]
         public async Task<IActionResult> RefreshToken(TokenDTO token)
         {
@@ -61,6 +65,7 @@ namespace Api.Auth.Controller
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPost("Revoke/{username}")]
         public async Task<IActionResult> Revoke(string username)
         {
@@ -68,6 +73,7 @@ namespace Api.Auth.Controller
             return NoContent();
         }
 
+        [Authorize(Policy = "AdminOnly")]
         [HttpDelete]
         public async Task<IActionResult> Delete(string email)
         {

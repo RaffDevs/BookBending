@@ -1,12 +1,12 @@
 using Api.Domains.Owner.Usecases.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shared.DTO;
 
 namespace Api.Domains.Owner.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "AdminOnly")]
     public class OwnerController : ControllerBase
     {
         private readonly IBookOwnerUsecase _usecase;
@@ -20,13 +20,6 @@ namespace Api.Domains.Owner.Controller
         public async Task<IActionResult> GetAll()
         {
             var result = await _usecase.GetAll();
-            return Ok(result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(BookOwnerDTO data)
-        {
-            var result = await _usecase.Create(data);
             return Ok(result);
         }
     }

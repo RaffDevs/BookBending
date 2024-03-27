@@ -108,7 +108,7 @@ public class AuthUsecase : IAuthUsecase
             };
         }
 
-        throw UnauthorizedError.Builder("Not allowed here!", null);
+        throw UnauthorizedError.Builder("Wrong credentials!", null);
     }
 
     public async Task Register(RegisterDTO data)
@@ -194,6 +194,6 @@ public class AuthUsecase : IAuthUsecase
         }
 
         var errors = string.Join("; ", result.Errors.Select(er => er.Description));
-        throw NotFoundError.Builder(errors, null);
+        throw BadRequestError.Builder(errors, null);
     }
 }
