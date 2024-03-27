@@ -54,6 +54,7 @@ namespace Api.Auth.Controller
             await _authUsecase.Register(register);
             await _bookOwnerUsecase.Create(data);
             
+            //TODO(Redirect to Login)
             return Ok("User created successfully!");
         }
 

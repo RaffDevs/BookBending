@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Auth\Controller\" />
-    <Folder Include="Domains\BookCollection\" />
+    <Folder Include="Domains\BookCollection\Controller\" />
     <Folder Include="Domains\Book\" />
     <Folder Include="Domains\Owner\Controller\" />
   </ItemGroup>

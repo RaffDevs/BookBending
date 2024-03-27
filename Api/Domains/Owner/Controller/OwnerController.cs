@@ -1,12 +1,13 @@
 using Api.Domains.Owner.Usecases.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Errors;
 
 namespace Api.Domains.Owner.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = "AdminOnly")]
+    
     public class OwnerController : ControllerBase
     {
         private readonly IBookOwnerUsecase _usecase;
@@ -17,9 +18,24 @@ namespace Api.Domains.Owner.Controller
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> GetAllOwners()
         {
             var result = await _usecase.GetAll();
+            return Ok(result);
+        }
+
+        [HttpGet("{ownerName:alpha}")]
+        [Authorize(Policy = "UserOnly")]
+        public async Task<IActionResult> GetOwner(string ownerName)
+        {
+            var result = await _usecase.GetBy(bo => bo.UserName == ownerName);
+
+            if (result is null)
+            {
+                throw NotFoundError.Builder("No user found for this name", null);
+            }
+
             return Ok(result);
         }
     }

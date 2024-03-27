@@ -1,8 +1,13 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Api.Auth.Models;
 using Api.Auth.Services;
 using Api.Auth.Usecases;
 using Api.Database.Context;
+using Api.Domains.BookCollection.Mapper;
+using Api.Domains.BookCollection.Repository;
+using Api.Domains.BookCollection.Usecases;
+using Api.Domains.BookCollection.Usecases.Interfaces;
 using Api.Domains.Owner.Mapper;
 using Api.Domains.Owner.Repository;
 using Api.Domains.Owner.Usecases;
@@ -32,9 +37,11 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 builder.Services.AddControllers(options =>
-{
-    options.Filters.Add(typeof(ApiExceptionFilter));
-});
+    {
+        options.Filters.Add(typeof(ApiExceptionFilter));
+    })
+    .AddJsonOptions(options => 
+        { options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthUsecase, AuthUsecase>();
@@ -42,7 +49,10 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
 builder.Services.AddScoped<IBookOwnerRepository, BookOwnerRepository>();
 builder.Services.AddScoped<IBookOwnerUsecase, BookOwnerUsecase>();
+builder.Services.AddScoped<IBookCaseRepository, BookCaseRepository>();
+builder.Services.AddScoped<IBookCaseUsecase, BookCaseUsecase>();
 builder.Services.AddAutoMapper(typeof(BookOwnerDTOMapperProfile));
+builder.Services.AddAutoMapper(typeof(BookCaseDTOMapperProfile));
 
 
 builder.Services.AddEndpointsApiExplorer();

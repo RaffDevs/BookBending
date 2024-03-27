@@ -9,13 +9,11 @@ namespace Api.Usecases;
 public class Usecases<T,M> : IUsecases<T,M>
 {
 
-    private readonly IRepository<T> _repository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork<T> _uof;
 
-    public Usecases(IRepository<T> repository, IMapper mapper, IUnitOfWork<T> uof)
+    public Usecases(IMapper mapper, IUnitOfWork<T> uof)
     {
-        _repository = repository;
         _mapper = mapper;
         _uof = uof;
     }
