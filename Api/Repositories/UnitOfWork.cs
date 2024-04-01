@@ -1,4 +1,6 @@
 ﻿using Api.Database.Context;
+using Api.Domains.BookCollection.Repository;
+using Api.Domains.Owner.Repository;
 using Api.Repositories.Interfaces;
 using Domain;
 using Domain.Entities;
@@ -7,7 +9,7 @@ using Shared.Errors;
 
 namespace Api.Repositories;
 
-public class UnitOfWork<T> : IUnitOfWork<T> where T : class
+public class UnitOfWork : IUnitOfWork
 {
     private IBookOwnerRepository _bookOwnerRepository { get; }
 
@@ -25,31 +27,9 @@ public class UnitOfWork<T> : IUnitOfWork<T> where T : class
         _context = context;
     }
 
-    public IRepository<T> Repository
-    {
-        get
-        {
-            Type typeT = typeof(T);
-
-            if (typeT == typeof(BookOwner))
-            {
-                return (IRepository<T>)_bookOwnerRepository;
-            }
-
-            if (typeT == typeof(BookCase))
-            {
-                return (IRepository<T>)_bookCaseRepository;
-            }
-
-            if (typeT == typeof(Book))
-            {
-                throw new NotImplementedException();
-            }
-
-            throw InternalServerError.Builder(null, new Exception("Repository not implemented!"));
-        }
-    }
-
+    public IBookOwnerRepository BookOwnerRepository => _bookOwnerRepository ?? new BookOwnerRepository(_context);
+    public IBookCaseRepository BookCaseRepository => _bookCaseRepository ?? new BookCaseRepository(_context);
+    
     public async Task Commit()
     {
         await _context.SaveChangesAsync();

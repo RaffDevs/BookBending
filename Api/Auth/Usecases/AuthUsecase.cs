@@ -102,7 +102,7 @@ public class AuthUsecase : IAuthUsecase
             return new TokenDTO
             {
                 AcessToken = new JwtSecurityTokenHandler().WriteToken(token),
-                RefershToken = refreshToken,
+                RefreshToken = refreshToken,
                 ValidTo = token.ValidTo,
                 Username = user.UserName!
             };
@@ -144,7 +144,7 @@ public class AuthUsecase : IAuthUsecase
         }
 
         var accessToken = data.AcessToken ?? throw new ArgumentNullException(nameof(data));
-        var refreshToken = data.RefershToken ?? throw new ArgumentNullException(nameof(data));
+        var refreshToken = data.RefreshToken ?? throw new ArgumentNullException(nameof(data));
         var principalClaims = _tokenService.GetPrincipalFromExpiredToken(accessToken!, _configuration);
 
         if (principalClaims == null)
@@ -166,7 +166,7 @@ public class AuthUsecase : IAuthUsecase
         return new TokenDTO
         {
             AcessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken),
-            RefershToken = newRefreshToken
+            RefreshToken = newRefreshToken
         };
     }
 

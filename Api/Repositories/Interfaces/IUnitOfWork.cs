@@ -2,8 +2,12 @@
 
 namespace Api.Repositories.Interfaces;
 
-public interface IUnitOfWork<T>
+public interface IUnitOfWork
 {
-     IRepository<T> Repository { get; }
+     IBookOwnerRepository BookOwnerRepository { get; }
+     IBookCaseRepository BookCaseRepository { get; }
+     
+     // IBookRepository BookRepository { get;  }
+     
      public Task Commit();
 }

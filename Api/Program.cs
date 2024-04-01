@@ -46,7 +46,7 @@ builder.Services.AddControllers(options =>
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthUsecase, AuthUsecase>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IBookOwnerRepository, BookOwnerRepository>();
 builder.Services.AddScoped<IBookOwnerUsecase, BookOwnerUsecase>();
 builder.Services.AddScoped<IBookCaseRepository, BookCaseRepository>();

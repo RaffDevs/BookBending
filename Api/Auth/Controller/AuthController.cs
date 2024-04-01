@@ -54,7 +54,6 @@ namespace Api.Auth.Controller
             await _authUsecase.Register(register);
             await _bookOwnerUsecase.Create(data);
             
-            //TODO(Redirect to Login)
             return Ok("User created successfully!");
         }
 
@@ -79,7 +78,7 @@ namespace Api.Auth.Controller
         public async Task<IActionResult> Delete(string email)
         {
             var result = await _authUsecase.Delete(email);
-            var user = await _bookOwnerUsecase.GetBy(bo => bo.UserName == result.UserName);
+            var user = await _bookOwnerUsecase.GetByName(result.UserName);
             await _bookOwnerUsecase.Delete(user.Id);
             return NoContent();
         }

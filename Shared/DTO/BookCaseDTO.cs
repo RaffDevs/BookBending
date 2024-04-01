@@ -12,5 +12,8 @@ public record BookCaseDTO
     [MaxLength(50)]
     public string? Label { get; init; }
     
+    public int BookOwnerId { get; init; }
     public BookOwnerDTO? BookOwner { get; init; }
+
+    public List<BookDTO>? Books { get; init; } = new List<BookDTO>();
 }

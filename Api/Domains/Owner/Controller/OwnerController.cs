@@ -29,13 +29,7 @@ namespace Api.Domains.Owner.Controller
         [Authorize(Policy = "UserOnly")]
         public async Task<IActionResult> GetOwner(string ownerName)
         {
-            var result = await _usecase.GetBy(bo => bo.UserName == ownerName);
-
-            if (result is null)
-            {
-                throw NotFoundError.Builder("No user found for this name", null);
-            }
-
+            var result = await _usecase.GetByName(ownerName);
             return Ok(result);
         }
     }

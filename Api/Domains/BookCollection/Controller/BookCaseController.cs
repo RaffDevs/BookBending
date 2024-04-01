@@ -1,7 +1,7 @@
 using Api.Domains.BookCollection.Usecases.Interfaces;
+using Api.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DTO;
 
@@ -21,10 +21,11 @@ namespace Api.Domains.BookCollection.Controller
             _mapper = mapper;
         }
         
-        
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetBookCaseById(int id)
+        public async Task<IActionResult> GetBookCaseById(int id, string ownerName)
         {
+            var usernameClaim = this.ExtractUsernameClaim();
+            this.ValidateUsermameClaim(usernameClaim, ownerName);
             var bookcase = await _usecase.GetById(id);
             return Ok(bookcase);
         }
@@ -32,30 +33,36 @@ namespace Api.Domains.BookCollection.Controller
         [HttpGet]
         public async Task<IActionResult> GetAllBookCases(string ownerName)
         {
-            var bookCases = await _usecase.GetAllBookCase(ownerName);
+            var usernameClaim = this.ExtractUsernameClaim();
+            this.ValidateUsermameClaim(usernameClaim, ownerName);
+            var bookCases = await _usecase.GetAll(ownerName);
             return Ok(bookCases);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateBookCase(BookCaseDTO data)
         {
-            var bookCase = await _usecase.Create(data);
+            var usernameClaim = this.ExtractUsernameClaim();
+            this.ValidateUsermameClaim(usernameClaim, data.BookOwner.UserName);
+            
+            var bookCase = await _usecase.Create(data, usernameClaim);
             return Ok(_mapper.Map<BookCaseDTO>(bookCase));
         }
 
         [HttpPut("id:int")]
         public async Task<IActionResult> UpdateBookCase(int id, BookCaseDTO data)
         {
-            //TODO(Update if bookcase belongs to current user)
-            var bookCase = await _usecase.Update(id, data);
-            return Ok(_mapper.Map<BookCaseDTO>(data));
+            var usernameClaim = this.ExtractUsernameClaim();
+            this.ValidateUsermameClaim(usernameClaim, data.BookOwner.UserName);
+            var bookCase = await _usecase.Update(data, id, usernameClaim);
+            return Ok(_mapper.Map<BookCaseDTO>(bookCase));
         }
 
         [HttpDelete("id:int")]
         public async Task<IActionResult> Delete(int id)
         {
-            //TODO(Delete if bookcase belongs to current user)
-            await _usecase.Delete(id);
+            var usernameClaim = this.ExtractUsernameClaim();
+            await _usecase.Delete(id, usernameClaim);
             return NoContent();
         }
         
