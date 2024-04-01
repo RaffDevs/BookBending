@@ -9,6 +9,6 @@ public sealed class BookCase
     
     public int BookOwnerId { get; private set; }
     public BookOwner? Owner { get; private set; }
-    public IEnumerable<Book> Books { get; private set; }
-    
+    public IEnumerable<Book>? Books { get; private set; } = new List<Book>();
+
 }

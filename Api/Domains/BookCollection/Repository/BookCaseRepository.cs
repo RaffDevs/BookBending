@@ -14,14 +14,4 @@ public class BookCaseRepository : Repository<BookCase>, IBookCaseRepository
     {
         _context = context;
     }
-
-    public async Task<IEnumerable<BookCase>> GetBookCasesByOwner(string ownerName)
-    {
-        var bookCases = await _context.BookCases
-            .Where(bc => bc.Owner.UserName == ownerName)
-            .Include(bc => bc.Books)
-            .ToListAsync();
-
-        return bookCases;
-    }
 }

@@ -23,19 +23,24 @@ public class Repository<T> : IRepository<T> where T: class
     {
         return await _context.Set<T>().FindAsync(id);
     }
+    
+    public async Task<IEnumerable<T?>> GetAllBy(Expression<Func<T, bool>> predicate)
+    {
+        return await _context.Set<T>().Where(predicate).ToListAsync();
+    }
 
     public async Task<T?> GetBy(Expression<Func<T, bool>> predicate)
     {
         return await _context.Set<T>().FirstOrDefaultAsync(predicate);
     }
-
+    
     public async Task<T> Create(T data)
     {
         var result = await _context.Set<T>().AddAsync(data);
         return result.Entity;
     }
 
-    public T Update(int id, T data)
+    public T Update(T data)
     {
         var result = _context.Set<T>().Update(data);
         return result.Entity;
