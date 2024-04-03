@@ -2,7 +2,7 @@
 using Api.Domains.Owner.Usecases.Interfaces;
 using Api.Repositories.Interfaces;
 using AutoMapper;
-using Domain;
+using Domain.Entities;
 using Domain.Interfaces;
 using Shared.DTO;
 using Shared.Errors;
@@ -32,6 +32,7 @@ public class BookCaseUsecase : IBookCaseUsecase
 
     public async Task<BookCase> GetById(int id)
     {
+        //TODO(feat: implement GetBooksInBookcase)
         var bookCase = await _repository.GetById(id);
 
         if (bookCase is null)

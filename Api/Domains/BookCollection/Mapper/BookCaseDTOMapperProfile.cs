@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain;
+using Domain.Entities;
 using Shared.DTO;
 
 namespace Api.Domains.BookCollection.Mapper;

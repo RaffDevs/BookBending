@@ -4,7 +4,7 @@ using Shared.Errors;
 
 namespace Api.Extensions;
 
-public static class ControllerContextExtensions
+public static class ControllerBaseExtensions
 {
     public static void ValidateUsermameClaim(this ControllerBase controllerBase, string usernameClaim, string userName)
     {

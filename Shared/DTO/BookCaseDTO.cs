@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Shared.DTO;
 
 namespace Shared.DTO;
 
@@ -14,6 +13,7 @@ public record BookCaseDTO
     public string? Label { get; init; }
     
     public int BookOwnerId { get; init; }
+    
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public BookOwnerDTO? BookOwner { get; init; }
 
