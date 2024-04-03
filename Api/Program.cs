@@ -8,6 +8,10 @@ using Api.Domains.BookCollection.Mapper;
 using Api.Domains.BookCollection.Repository;
 using Api.Domains.BookCollection.Usecases;
 using Api.Domains.BookCollection.Usecases.Interfaces;
+using Api.Domains.Books.Mapper;
+using Api.Domains.Books.Repository;
+using Api.Domains.Books.Usecases;
+using Api.Domains.Books.Usecases.Interfaces;
 using Api.Domains.Owner.Mapper;
 using Api.Domains.Owner.Repository;
 using Api.Domains.Owner.Usecases;
@@ -26,10 +30,10 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
 // Add services to the container.
 
-builder.Services.AddDbContext<DatabaseContext>(options =>
+builder.Services.AddDbContext<DatabaseContext>( options =>
 {
     options.UseNpgsql(connectionString);
-});
+}, ServiceLifetime.Scoped);
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -51,8 +55,11 @@ builder.Services.AddScoped<IBookOwnerRepository, BookOwnerRepository>();
 builder.Services.AddScoped<IBookOwnerUsecase, BookOwnerUsecase>();
 builder.Services.AddScoped<IBookCaseRepository, BookCaseRepository>();
 builder.Services.AddScoped<IBookCaseUsecase, BookCaseUsecase>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBookUsecase, BookUsecase>();
 builder.Services.AddAutoMapper(typeof(BookOwnerDTOMapperProfile));
 builder.Services.AddAutoMapper(typeof(BookCaseDTOMapperProfile));
+builder.Services.AddAutoMapper(typeof(BookDTOMapperProfile));
 
 
 builder.Services.AddEndpointsApiExplorer();

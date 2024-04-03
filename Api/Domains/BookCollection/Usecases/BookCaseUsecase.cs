@@ -2,7 +2,7 @@
 using Api.Domains.Owner.Usecases.Interfaces;
 using Api.Repositories.Interfaces;
 using AutoMapper;
-using Domain;
+using Domain.Entities;
 using Domain.Interfaces;
 using Shared.DTO;
 using Shared.Errors;
@@ -13,7 +13,7 @@ public class BookCaseUsecase : IBookCaseUsecase
 {
     private readonly IUnitOfWork _uof;
     private readonly IMapper _mapper; 
-    private readonly IRepository<BookCase> _repository;
+    private readonly IBookCaseRepository _repository;
     private readonly IBookOwnerUsecase _bookOwnerUsecase;
 
     public BookCaseUsecase(IMapper mapper, IUnitOfWork uof, IBookOwnerUsecase bookOwnerUsecase)
@@ -32,7 +32,8 @@ public class BookCaseUsecase : IBookCaseUsecase
 
     public async Task<BookCase> GetById(int id)
     {
-        var bookCase = await _repository.GetById(id);
+        //TODO(feat: implement GetBooksInBookcase)
+        var bookCase = await _repository.GetBooksInBookcase(id);
 
         if (bookCase is null)
         {
