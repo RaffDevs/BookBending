@@ -32,7 +32,6 @@ public class BookCaseUsecase : IBookCaseUsecase
 
     public async Task<BookCase> GetById(int id)
     {
-        //TODO(feat: implement GetBooksInBookcase)
         var bookCase = await _repository.GetBooksInBookcase(id);
 
         if (bookCase is null)
