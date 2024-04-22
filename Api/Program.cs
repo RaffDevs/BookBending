@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Api.Auth.Models;
 using Api.Auth.Services;
 using Api.Auth.Usecases;
+using Api.Auth.Usecases.Interfaces;
 using Api.Database.Context;
 using Api.Domains.BookCollection.Mapper;
 using Api.Domains.BookCollection.Repository;

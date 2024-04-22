@@ -1,5 +1,5 @@
 using Api.Auth.DTO;
-using Api.Auth.Usecases;
+using Api.Auth.Usecases.Interfaces;
 using Api.Domains.Owner.Usecases.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

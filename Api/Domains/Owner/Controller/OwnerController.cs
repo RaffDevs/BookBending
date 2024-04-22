@@ -1,7 +1,6 @@
 using Api.Domains.Owner.Usecases.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Errors;
 
 namespace Api.Domains.Owner.Controller
 {

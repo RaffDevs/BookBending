@@ -1,6 +1,5 @@
 using Api.Domains.Books.Usecases.Interfaces;
 using AutoMapper;
-using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DTO;

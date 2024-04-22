@@ -1,7 +1,7 @@
 ﻿using Api.Auth.DTO;
 using Api.Auth.Models;
 
-namespace Api.Auth.Usecases;
+namespace Api.Auth.Usecases.Interfaces;
 
 public interface IAuthUsecase
 {
