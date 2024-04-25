@@ -1,49 +1,60 @@
 ﻿@page "/Login"
 @layout EmptyLayout
+@inherits LoginViewModel
 
 <MudGrid Justify="Justify.Center" Class="my-grid d-flex align-content-center">
-    <MudItem xs="12" md="8">
-        <MudPaper Class="pa-16 rounded-lg" Elevation="4">
+    <MudItem xs="12" lg="6">
+        <MudPaper Class="pa-16 rounded-lg " Elevation="4">
             <MudPaper Class="mb-8" Elevation="0">
                 <MudText Class="mud-primary-text" Typo="Typo.h3">
                     Book<br>Bending
                 </MudText>
             </MudPaper>
-            <MudPaper Elevation="0">
-                <MudField
-                    Label="Email"
-                    Variant="Variant.Outlined"
-                    Class="my-4">
-                    <MudIcon Icon="@Icons.Material.Filled.Email"/>
-                </MudField>
-                <MudField
-                    Label="Password"
-                    Variant="Variant.Outlined"
-                    Class="my-4">
-                    <MudIcon Icon="@Icons.Material.Filled.Password"/>
-                </MudField>
-            </MudPaper>
-            <MudStack Row="true" Justify="Justify.FlexEnd">
-                <MudButton Class="px-8" Variant="Variant.Text" Color="Color.Primary">Register</MudButton>
-            </MudStack>
-            <MudStack Class="mt-8" Row="true" Justify="Justify.Center">
-                <MudButton Class="px-8" Variant="Variant.Filled" Color="Color.Primary">Login</MudButton>
-            </MudStack>
+            <EditForm Model="Login">
+                <DataAnnotationsValidator/>
+                @* <ValidationSummary/> *@
+                <MudPaper Elevation="0">
+                    <MudTextField
+                        T="string"
+                        Label="Email"
+                        Variant="Variant.Outlined"
+                        Class="my-4"
+                        Adornment="Adornment.Start"
+                        AdornmentIcon="@Icons.Material.Filled.Email"
+                        @bind-Value="Login.Email"
+                        For="@(() => Login.Email)">
+                    </MudTextField>
+                    <MudTextField
+                        T="string"
+                        Label="Password"
+                        Variant="Variant.Outlined"
+                        Class="my-4"
+                        Adornment="Adornment.Start"
+                        AdornmentIcon="@Icons.Material.Filled.Password"
+                        InputType="InputType.Password"
+                        @bind-Value="Login.Password"
+                        For="@(() => Login.Password)">
+                    </MudTextField>
+                </MudPaper>
+                <MudStack Row="true" Justify="Justify.FlexEnd">
+                    <MudButton Class="px-8" Variant="Variant.Text" Color="Color.Primary">Register</MudButton>
+                </MudStack>
+                <MudStack Class="mt-8" Row="true" Justify="Justify.Center">
+                    <MudButton
+                        ButtonType="ButtonType.Submit"
+                        Class="px-8"
+                        Variant="Variant.Filled"
+                        Color="Color.Primary">
+                        Login
+                    </MudButton>
+                </MudStack>
+            </EditForm>
         </MudPaper>
-
     </MudItem>
 </MudGrid>
 
 <style>
     .my-grid {
         height: 80%;
-    }
-    
-    .debug {
-        border: 1px solid blue;
-    }
-    
-    .bg-color {
-        background-color: @Colors.Grey.Lighten5;
-    }
+    }   
 </style>

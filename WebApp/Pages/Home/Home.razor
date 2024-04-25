@@ -1,9 +1,14 @@
 ﻿@page "/"
 
 <PageTitle>Home</PageTitle>
-
+<AuthorizeView>
+    <Authorized>
+        <MudText> Welcome to your new app @context.User.Identity.Name!</MudText>
+    </Authorized>
+    <NotAuthorized>
+        <MudText Typo="Typo.h1" Align="Align.Center" Class="red-text">Forbidden!</MudText>
+    </NotAuthorized>
+</AuthorizeView>
 <MudText >
-    Hello World!!!
 </MudText>
 
-Welcome to your new app.

@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using System.Text.Json.Serialization;
 
-namespace Api.Auth.DTO;
+namespace Shared.DTO;
 
 public class TokenDTO
 {

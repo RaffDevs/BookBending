@@ -10,6 +10,8 @@ a, .btn-link {
     color: #0071c1;
 }
 
+
+
 .btn-primary {
     color: #fff;
     background-color: #a4aab1;
@@ -100,4 +102,8 @@ a, .btn-link {
 
 code {
     color: #c02d76;
+}
+
+.debug {
+    border: 1px solid blue;
 }

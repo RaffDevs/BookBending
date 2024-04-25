@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Auth.DTO;
+namespace Shared.DTO;
 
 public record AddUserToRoleDTO
 {

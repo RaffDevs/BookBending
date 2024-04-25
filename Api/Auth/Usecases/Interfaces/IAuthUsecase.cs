@@ -1,5 +1,5 @@
-﻿using Api.Auth.DTO;
-using Api.Auth.Models;
+﻿using Api.Auth.Models;
+using Shared.DTO;
 
 namespace Api.Auth.Usecases.Interfaces;
 

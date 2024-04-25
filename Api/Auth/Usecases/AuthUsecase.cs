@@ -1,11 +1,11 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Api.Auth.DTO;
 using Api.Auth.Models;
 using Api.Auth.Services;
 using Api.Auth.Usecases.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Shared.Errors;
+using Shared.DTO;
 
 namespace Api.Auth.Usecases;
 
