@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
@@ -20,6 +21,14 @@ public class AuthStateProvider : AuthenticationStateProvider
     private AuthenticationState NotAuthenticated()
     {
         return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+    }
+
+    private IEnumerable<Claim> ExtractClaims(string jwtToken)
+    {
+        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        JwtSecurityToken securityToken = (JwtSecurityToken)tokenHandler.ReadToken(jwtToken);
+        IEnumerable<Claim> claims = securityToken.Claims;
+        return claims;
     }
 
     public AuthenticationState CreateAuthentication(string token)
